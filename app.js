@@ -40,7 +40,7 @@ app.get("/blogs", function(req, res) {
       if(err) {
           console.log(err);
       } else {
-          res.render("index", {blogs: blogs}); 
+          res.render("index", {blogs: blogs});
       }
     });
 });
@@ -96,8 +96,19 @@ app.put("/blogs/:id", function(req, res) {
     });
 });
 
-app.listen(3000, process.env.IP, function() {
-  console.log("Blog Server has started");  
+// DELETE ROUTE
+app.delete("/blogs/:id", function(req, res) {
+  //destroy blogs
+  Blog.findByIdAndRemove(req.params.id, function(err)  {
+    if(err) {
+      res.redirect("/blogs");
+    } else {
+      res.redirect("/blogs");
+    }
+  })
+  // redirect
 });
 
-
+app.listen(3000, process.env.IP, function() {
+  console.log("Blog Server has started");
+});
